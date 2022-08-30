@@ -31,7 +31,7 @@ data = result["result"][0]
 sysmac = data["systemMacAddress"]
 serial = data["serialNumber"]
 
-requestUrl = "http://172.16.14.72/bootstrap/requestip/202208261954/" + sysmac + "/" + serial
+requestUrl = "http://172.16.14.72/bootstrap/requestip/202208301847/" + sysmac + "/" + serial
 
 response = requests.get(requestUrl)
 ip = response.text

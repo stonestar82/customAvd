@@ -1,0 +1,13 @@
+Type,Node,Node Interface,Leaf IP Address,Peer Type,Peer Node,Peer Interface,Peer IP Address
+l3leaf,BL-01,Ethernet1,100.100.0.25/31,spine,Spine-01,Ethernet5,100.100.0.24/31
+l3leaf,BL-01,Ethernet2,100.100.0.27/31,spine,Spine-02,Ethernet5,100.100.0.26/31
+l3leaf,BL-02,Ethernet1,100.100.0.29/31,spine,Spine-01,Ethernet6,100.100.0.28/31
+l3leaf,BL-02,Ethernet2,100.100.0.31/31,spine,Spine-02,Ethernet6,100.100.0.30/31
+l3leaf,Leaf-01,Ethernet1,100.100.0.9/31,spine,Spine-01,Ethernet1,100.100.0.8/31
+l3leaf,Leaf-01,Ethernet2,100.100.0.11/31,spine,Spine-02,Ethernet1,100.100.0.10/31
+l3leaf,Leaf-02,Ethernet1,100.100.0.13/31,spine,Spine-01,Ethernet2,100.100.0.12/31
+l3leaf,Leaf-02,Ethernet2,100.100.0.15/31,spine,Spine-02,Ethernet2,100.100.0.14/31
+l3leaf,Leaf-03,Ethernet1,100.100.0.17/31,spine,Spine-01,Ethernet3,100.100.0.16/31
+l3leaf,Leaf-03,Ethernet2,100.100.0.19/31,spine,Spine-02,Ethernet3,100.100.0.18/31
+l3leaf,Leaf-04,Ethernet1,100.100.0.21/31,spine,Spine-01,Ethernet4,100.100.0.20/31
+l3leaf,Leaf-04,Ethernet2,100.100.0.23/31,spine,Spine-02,Ethernet4,100.100.0.22/31
