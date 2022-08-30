@@ -1,0 +1,8 @@
+- name: Configuration deployment with EAPI
+  hosts: D1_FABRIC
+  gather_facts: false
+  
+  tasks:
+    - name: run EAPI
+      import_role:
+        name: arista.avd.eos_config_deploy_eapi

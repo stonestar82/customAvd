@@ -1,0 +1,11 @@
+---
+- name: AVD 기초데이터 생성
+  hosts: D1_FABRIC
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+  tasks:
+    - name: generate intended variables
+      import_role:
+        name: arista.avd.eos_designs

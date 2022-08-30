@@ -1,0 +1,39 @@
+{# Loopback Interfaces #}
+{# eos- Loopback Interfaces #}
+{% for loopback_interface in loopback_interfaces | arista.avd.convert_dicts('name') | arista.avd.natural_sort('name') %}
+{%     if loopback_interface.name == "Loopback0" %}{# Loopback0 #}
+!
+interface {{ loopback_interface.name }}
+{%         if loopback_interface.description is arista.avd.defined %}
+   description {{ loopback_interface.description }}
+{%         endif %}
+{%         if loopback_interface.ip_address is arista.avd.defined %}
+   ip address {{ loopback_interface.ip_address }}
+{%         endif %}
+{%     endif %}
+{% endfor %}
+{# router bgp configuration #}
+{# eos - Router BGP #}
+{% if ethernet_interfaces["Ethernet1"]["peer_type"] == "l3leaf" %}{# spine #}
+{% include 'eos/router-bgp-spine.j2' %}
+{% else %}{# leaf #}
+{% include 'eos/router-bgp-leaf.j2' %}
+{% endif %}
+{# peer-filters #}
+{% include 'eos/peer-filters.j2' %}
+{# Prefix-lists #}
+{# eos - prefix-lists #}
+{% for prefix_list in prefix_lists | arista.avd.convert_dicts('name') | arista.avd.natural_sort('name') %}
+{%     for sequence in prefix_list.sequence_numbers | arista.avd.convert_dicts('sequence') | arista.avd.natural_sort('sequence') %}
+{%       if sequence.sequence == 10   %}
+!
+ip prefix-list {{ prefix_list.name }}
+{%         if sequence.action is arista.avd.defined %}
+   seq {{ sequence.sequence }} {{ sequence.action }}
+{%         endif %}
+{%       endif %}
+{%     endfor %}
+{% endfor %}
+{# route-maps #}
+{# route-maps  기능변경 처리#}
+{% include 'eos/route-maps.j2' %}

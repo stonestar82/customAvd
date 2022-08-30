@@ -1,0 +1,180 @@
+{
+  "all": {
+    "fabricName": {"sheet": "Var", "p": "B2", "mapping":"fabric_name", "defaultValue": "DC"},
+    "mgmtInterface": {"sheet": "Var", "p": "Z9999", "mapping":"mgmt_interface", "defaultValue": "Management1"},
+    "mgmtInterfaceVrf": {"sheet": "Var", "p": "B8", "mapping":"mgmt_interface_vrf", "defaultValue": "MGMT"},
+    "managementGateway": {"sheet": "Var", "p": "B9", "mapping":"mgmt_gateway", "defaultValue": "192.168.22.254"},
+    "dnsServers": {"sheet": "Var", "p": "Z9999", "mapping":"name_servers", "defaultValue": "8.8.8.8"},
+    "ntpServers": {"sheet": "Var", "p": "Z9999", "mapping":"ntp_servers", "defaultValue": "0.fr.pool.ntp.org,1.fr.pool.ntp.org"},
+    "ntpServersPrefer": {"sheet": "Var", "p": "Z9999", "mapping":"ntp_servers_prefer", "defaultValue": "TRUE,FALSE"},
+    "adminName": {"sheet": "Var", "p": "B13", "mapping":"admin_name", "defaultValue": "admin"},
+    "adminPassword": {"sheet": "Var", "p": "B14", "mapping":"admin_info", "defaultValue": ""},
+    "privilege": {"sheet": "Var", "p": "B15", "mapping":"admin_privilege", "defaultValue": "15"},
+    "ansiblePassword": {"sheet": "Var", "p": "Z9999", "mapping":"ansible_info", "defaultValue": "ansible"},
+    "logginBufferedLevel": {"sheet": "Var", "p": "B5", "mapping":"loggin_buffered_level", "defaultValue": "1000"},
+    "logginConsole": {"sheet": "Var", "p": "Z9999", "mapping":"loggin_console", "defaultValue": "informational"},
+    "logginMonitor": {"sheet": "Var", "p": "Z9999", "mapping":"loggin_monitor", "defaultValue": "informational"},
+    "logginSynchronous": {"sheet": "Var", "p": "Z9999", "mapping":"loggin_sychronous", "defaultValue": "all"},
+    "terminalLength": {"sheet": "Var", "p": "B3", "mapping":"terminal_length", "defaultValue": "40"},
+    "terminalWidth": {"sheet": "Var", "p": "B4", "mapping":"terminal_width", "defaultValue": "200"},
+    "bannerLogin": {"sheet": "Var", "p": "Z9999", "mapping":"banner_login", "defaultValue": "***********************************************************************\\nGlobalTelecom and Arista Networks\\n***********************************************************************\\nEOF"},
+    "timeZone": {"sheet": "Var", "p": "B11", "mapping":"time_zone", "defaultValue": "Asia/Seoul"},
+    "spanningTreeMode": {"sheet": "Var", "p": "B7", "mapping":"spanning_tree_mode", "defaultValue": "None"},
+    "iproute": {"sheet": "Var", "p": "Z9999", "mapping":"ip_route", "defaultValue": "TRUE"},
+    "bgpMaximumPaths": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_maximum_paths", "defaultValue": "8"},
+    "bgpEcmp": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ecmp", "defaultValue": "8"},
+    "p2pIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"p2p_ipv4_pool", "defaultValue": "100.100.0.0/30"},
+    "macAging": {"sheet": "Var", "p": "B18", "mapping":"mac_aging", "defaultValue": "1"},
+    "arpAging": {"sheet": "Var", "p": "B19", "mapping":"arp_aging", "defaultValue": "1"}
+  },
+  "general": {
+    "fabricName": {"sheet": "Var", "p": "B2", "mapping":"fabric_name", "defaultValue": "DC"},
+    "mlagIgpPeerNetworkSummary": {"sheet": "Var", "p": "Z9999", "mapping":"leaf_peer_l3", "defaultValue": "10.255.251.0/24"},
+    "mlagPeerNetworkSummary": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_peer", "defaultValue": "10.255.252.0/24"},
+    "vxlanVlanAwareBundles": {"sheet": "Var", "p": "Z9999", "mapping":"vxlan_vlan_aware_bundles", "defaultValue": "TRUE"},
+    "pointToPointUplinkMtu": {"sheet": "Var", "p": "Z9999", "mapping":"p2p_uplinks_mtu", "defaultValue": "1500"},
+    "bgpIpv4UnderlayPeerGroupName": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ipv4_name", "defaultValue": "UNDERLAY"},
+    "bgpIpv4UnderlayPeerGroupPassword": {"sheet": "Var", "p": "B17", "mapping":"bgp_ipv4_password", "defaultValue": "GT"},
+    "bgpIpv4UnderlayPeerFilter": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ipv4_filter", "defaultValue": "Leaf-Ass"},
+    "bgpIpv4UnderlayPrefix": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ipv4_prefix", "defaultValue": "100.64.0.0/10"},
+    "bgpIpv4UnderlayRemoteAs": {"sheet": "Var", "p": "E5", "mapping":"bgp_ipv4_remoteas", "defaultValue": "65000"},
+    "bgpIpv4UnderlayMaximumRoutes": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ipv4_maximum_routes", "defaultValue": "12000"},
+    "bgpEvpnOverlayPeerGroupName": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_evpn_name", "defaultValue": "EVPN"},
+    "bgpEvpnOverlayPeerGroupPassword": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_evpn_password", "defaultValue": "GT"},
+    "bgpEvpnOverlayPeerFilter": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_evpn_filter", "defaultValue": "Leaf-Ass"},
+    "bgpEvpnOverlayPrefix": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_evpn_prefix", "defaultValue": "1.1.1.0/24"},
+    "bgpIpv4OverlayRemoteAs": {"sheet": "Var", "p": "E6", "mapping":"bgp_evpn_remoteas", "defaultValue": "65000"},
+    "bgpMlagIpv4UnderlayGroupPassword": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_mlag_ipv4_password", "defaultValue": "GT"},
+    "bgpBfdMultihopInterval": {"sheet": "Var", "p": "Z9999", "mapping":"bfd_interval", "defaultValue": "1200"},
+    "bgpBfdMultihopMinRx": {"sheet": "Var", "p": "Z9999", "mapping":"bfd_min_rx", "defaultValue": "1200"},
+    "bgpBfdMultihopMultiplier": {"sheet": "Var", "p": "Z9999", "mapping":"bfd_multiplier", "defaultValue": "3"}
+  },
+  "spine": {
+    "sheet": "SwitchIPInfo",
+    "prefix": "D1-Spine",
+    "props": {
+      "id": {
+        "col": "A"
+      },
+      "hostname": {
+        "col": "B"
+      },
+      "bgp": {
+        "name": "bgp_as",
+        "col": "C",
+        "defaultValue": "65000"
+      },
+      "loopback0": {
+        "col": "D"
+      },
+      "loopback1": {
+        "col": "E"
+      },
+      "mgmt": {
+        "col": "I"
+      }
+    }
+  },
+  "spineInfo": {
+    "platform": {"sheet": "Var", "p": "Z9999", "mapping":"platform",  "defaultValue": "vEOS"},
+    "bgpPeeringAsnRange": {"sheet": "Var", "p": "Z9999", "mapping":"leaf_as_range",  "defaultValue": ""},
+    "bgpAsn": {"sheet": "Var", "p": "E5", "mapping":"bgp_as", "defaultValue": "65000"},
+    "loopbackIpv4Pool": {"sheet": "Var", "p": "E17", "mapping":"loopback_ipv4_pool", "defaultValue": "1.1.1.0"},
+    "mlagPeerIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_peer_ipv4_pool", "defaultValue": "10.255.252.0/24"},
+    "mlagPeerL3Ipv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_peer_l3_ipv4_pool", "defaultValue": "10.255.251.0/24"},
+    "peerFilterName": {"sheet": "Var", "p": "Z9999", "mapping":"peer_filter_name", "defaultValue": "Leaf-Ass"},
+    "peerFilterSequenceNumber": {"sheet": "Var", "p": "Z9999", "mapping":"peer_filter_sequence_number", "defaultValue": "10"},
+    "peerFilterMatch": {"sheet": "Var", "p": "Z9999", "mapping":"peer_filter_match", "defaultValue": "as-range 65001-65200 result accept"},
+    "prefixName": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_name", "defaultValue": "Loopback"},
+    "prefixSequenceNumber": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_sequence_number", "defaultValue": "10"},
+    "prefixAction": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_action", "defaultValue": "permit 1.1.1.0/24 eq 32"},
+    "routeMapName": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_name", "defaultValue": "Loopback"},
+    "routeMapType": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_type", "defaultValue": "permit"},
+    "routeMapSequence": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_sequence", "defaultValue": "10"},
+    "routeMapMatch": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_match", "defaultValue": "ip address prefix-list Loopback"},
+    "bgpWaitForConvergence": {"sheet": "Var", "p": "Z9999", "mapping":"update_wait_for_convergence", "defaultValue": ""},
+    "bgpWaitInstall": {"sheet": "Var", "p": "Z9999", "mapping":"wait_install", "defaultValue": ""},	
+    "bgpDistanceSetting": {"sheet": "Var", "p": "Z9999", "mapping":"distance_setting", "defaultValue": ""},	
+    "bgpDefaultIpv4Unicast": {"sheet": "Var", "p": "Z9999", "mapping":"ipv4_unicast", "defaultValue": "False"}
+  },
+  "leaf": {
+      "sheet": "SwitchIPInfo",
+      "prefix": "D1-Leaf|D1-BL",
+      "props": {
+        "id": {
+          "col": "A"
+        },
+        "hostname": {
+          "col": "B"
+        },
+        "bgp": {
+          "name": "bgp_as",
+          "col": "C",
+          "defaultValue": "65000"
+        },
+        "loopback0": {
+          "col": "D"
+        },
+        "loopback1": {
+          "col": "E"
+        },
+        "mgmt": {
+          "col": "I"
+        }
+    }
+  },
+  "leafInfo": {
+    "platform": {"sheet": "Var", "p": "Z9999", "mapping":"platform", "defaultValue": "vEOS"},
+    "loopbackIpv4Pool": {"sheet": "Var", "p": "E17", "mapping":"loopback_ipv4_pool", "defaultValue": "1.1.1.0"},
+    "loopbackIpv4Offset": {"sheet": "Var", "p": "Z9999", "mapping":"loopback_ipv4_offset", "defaultValue": 1},
+    "vtepLoopbackIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"vtep_loopback_ipv4_pool", "defaultValue": "3.3.3.0/24"},
+    "uplinkInterfaces": {"sheet": "Var", "p": "Z9999", "mapping":"uplink_interfaces", "defaultValue": "Ethernet1, Ethernet2"},
+    "uplinkSwitches": {"sheet": "Var", "p": "Z9999", "mapping":"uplink_switches", "defaultValue": "Spine-01, Spine-02"},
+    "uplinkIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"uplink_ipv4_pool", "defaultValue": "100.100.0.0/30"},
+    "mlagPortChannelId": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_port_channel_id", "defaultValue": "1000"},
+    "mlagInterfaces": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_interfaces", "defaultValue": "Ethernet7, Ethernet8"},
+    "mlagPeerIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_peer_ipv4_pool", "defaultValue": "192.168.0.0/32"},
+    "mlagPeerL3Ipv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"mlag_peer_l3_ipv4_pool", "defaultValue": "10.255.251.0/24"},
+    "virtualRouterMacAddress": {"sheet": "Var", "p": "B21", "mapping":"virtual_router_mac_address", "defaultValue": "12:34:12:34:12:34"},
+    "spanningTreeMode": {"sheet": "Var", "p": "B7", "mapping":"spanning_tree_mode", "defaultValue": "None"},
+    "spanningTreePriority": {"sheet": "Var", "p": "Z9999", "mapping":"spanning_tree_priority", "defaultValue": "16384"},
+    "bgpWaitInstall": {"sheet": "Var", "p": "Z9999", "mapping":"", "defaultValue": ""},
+    "bgpDistanceSetting": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_distance_setting", "defaultValue": ""},
+    "bgpDefaultIpv4Unicast": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_default_ipv4_unicast", "defaultValue": "False"},
+    "bgpGracefulRestartTime": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_graceful_restart_time", "defaultValue": ""},
+    "bgpGracefulRestart": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_graceful_restart", "defaultValue": ""},
+    "prefixName": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_name", "defaultValue": "Loopback,Loopback"},
+    "prefixSequenceNumber": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_sequence_number", "defaultValue": "10,20"},
+    "prefixAction": {"sheet": "Var", "p": "Z9999", "mapping":"prefix_action", "defaultValue": "permit 1.1.1.0/24 eq 32,permit 2.2.2.0/24 eq 32"},
+    "routeMapName": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_name", "defaultValue": "Loopback"},
+    "routeMapType": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_type", "defaultValue": "permit"},
+    "routeMapSequence": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_sequence", "defaultValue": "10"},
+    "routeMapMatch": {"sheet": "Var", "p": "Z9999", "mapping":"route_map_match", "defaultValue": "ip address prefix-list Loopback"}
+  },
+  "leafUplink": {
+    "sheet" : "Portmap",
+    "start": {"switch": "B", "port": "C"},
+    "end": {"switch": "F", "port": "G"}
+  },
+  "pd": {
+    "switchIpInfo": {
+      "sheetName": "SwitchIPInfo",
+      "header": 1,
+      "hostName": "HOSTNAME",
+      "mgmt": "MGMT",
+      "loopback0": "Loopback0",
+      "bgpAsn": "BGP_ASN",
+      "type": "Type"
+    },
+    "portMap": {
+      "sheetName": "Portmap",
+      "header": 1,
+      "spine": "Start",
+      "spinePort": "S_Port",
+      "spineIp": "S_IP",
+      "leaf": "End",
+      "leafPort": "E_Port",
+      "leafIp": "E_IP"
+    }
+  }
+}

@@ -1,0 +1,164 @@
+router_bgp:
+  as: '65001'
+  router_id: 1.1.1.4
+  bgp_defaults:
+  - no bgp default ipv4-unicast
+  - maximum-paths 8 ecmp 8
+  peer_groups:
+    UNDERLAY:
+      type: ipv4
+      password: GT
+      maximum_routes: 12000
+      send_community: all
+      bgp_listen_range_prefix: 100.64.0.0/10
+      peer_filter: Leaf-Ass
+      remote_as: '65000'
+    EVPN:
+      type: evpn
+      update_source: Loopback0
+      bfd: true
+      ebgp_multihop: '3'
+      password: GT
+      send_community: all
+      maximum_routes: 0
+      bgp_listen_range_prefix: 1.1.1.0/24
+      peer_filter: Leaf-Ass
+      remote_as: '65001'
+  address_family_ipv4:
+    peer_groups:
+      UNDERLAY:
+        activate: true
+      EVPN:
+        activate: false
+  redistribute_routes:
+    connected:
+      route_map: RM-CONN-2-BGP
+  neighbors:
+    100.100.0.8:
+      peer_group: UNDERLAY
+      type: ipv4
+      remote_as: '65000'
+      description: Spine-01
+    100.100.0.10:
+      peer_group: UNDERLAY
+      type: ipv4
+      remote_as: '65000'
+      description: Spine-02
+    1.1.1.1:
+      peer_group: EVPN
+      description: Spine-01
+      remote_as: '65000'
+    1.1.1.2:
+      peer_group: EVPN
+      description: Spine-02
+      remote_as: '65000'
+  address_family_evpn:
+    peer_groups:
+      EVPN:
+        activate: true
+static_routes:
+- vrf: MGMT
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.22.254
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+name_server:
+  source:
+    vrf: MGMT
+  nodes:
+  - 8.8.8.8
+spanning_tree:
+  mode: none
+local_users:
+  admin:
+    privilege: 15
+    role: network-admin
+    sha512_password: admin
+  ansible:
+    privilege: 15
+    role: network-admin
+    sha512_password: ansible
+vrfs:
+  MGMT:
+    ip_routing: false
+management_interfaces:
+  Management1:
+    description: oob_management
+    shutdown: false
+    vrf: MGMT
+    ip_address: 192.168.22.193/24
+    gateway: 192.168.22.254
+    type: oob
+management_api_http:
+  enable_vrfs:
+    MGMT: {}
+  enable_https: true
+p2p_ipv4_pool: 100.100.0.0/30
+switch_id: 3
+ethernet_interfaces:
+  Ethernet1:
+    peer: Spine-01
+    peer_interface: Ethernet1
+    peer_type: spine
+    description: Connection to Spine-01-Ethernet1
+    mtu: 1500
+    type: routed
+    shutdown: false
+    ip_address: 100.100.0.9/31
+  Ethernet2:
+    peer: Spine-02
+    peer_interface: Ethernet1
+    peer_type: spine
+    description: Connection to Spine-02-Ethernet1
+    mtu: 1500
+    type: routed
+    shutdown: false
+    ip_address: 100.100.0.11/31
+loopback_interfaces:
+  Loopback0:
+    description: RouterID_EVPN
+    shutdown: false
+    ip_address: 1.1.1.4/32
+  Loopback1:
+    description: VTEP_VXLAN_Tunnel_Source
+    shutdown: false
+    ip_address: 3.3.3.4/32
+prefix_lists:
+- name: Loopback
+  sequence_numbers:
+  - sequence: 10
+    action: permit 1.1.1.0/24 eq 32
+- name: Loopback
+  sequence_numbers:
+  - sequence: 20
+    action: permit 2.2.2.0/24 eq 32
+router_bfd:
+  multihop:
+    interval: 1200
+    min_rx: 1200
+    multiplier: 3
+ip_igmp_snooping:
+  globally_enabled: true
+ip_virtual_router_mac_address: 9774555154
+vxlan_interface:
+  Vxlan1:
+    description: VTEP
+    vxlan:
+      source_interface: Loopback1
+      udp_port: 4789
+ntp:
+  local_interface:
+    name: Management1
+    vrf: MGMT
+  servers:
+  - name: 0.fr.pool.ntp.org
+    preferred: true
+    vrf: MGMT
+  - name: 1.fr.pool.ntp.org
+    preferred: false
+    vrf: MGMT

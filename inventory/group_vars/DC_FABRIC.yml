@@ -1,0 +1,57 @@
+bfd_multihop:
+  interval: '1200'
+  min_rx: '1200'
+  multiplier: '3'
+bgp_mlag_ipv4_password: GT
+bgp_peer_groups:
+  EVPN_OVERLAY_PEERS:
+    bgp_listen_range_prefix: 1.1.1.0/24
+    name: EVPN
+    password: GT
+    peer_filter: Leaf-Ass
+    remote_as: 65001
+  IPv4_UNDERLAY_PEERS:
+    bgp_listen_range_prefix: 100.64.0.0/10
+    maximum_routes: '12000'
+    name: UNDERLAY
+    password: GT
+    peer_filter: Leaf-Ass
+    remote_as: 65000
+fabric_name: DC1_FABRIC
+leaf_peer_l3: 10.255.251.0/24
+mlag_peer: 10.255.252.0/24
+p2p_uplinks_mtu: '1500'
+spine:
+  defaults:
+    bgp_as: 65000
+    bgp_defaults:
+    - no bgp default ipv4-unicast
+    loopback_ipv4_pool: 1.1.1.0
+    mlag_peer_ipv4_pool: 10.255.252.0/24
+    mlag_peer_l3_ipv4_pool: 10.255.251.0/24
+    peer_filters:
+    - name: Leaf-Ass
+      sequence_numbers:
+      - match: as-range 65001-65200 result accept
+        sequence: '10'
+    platform: vEOS
+    prefix_lists:
+    - name: Loopback
+      sequence_numbers:
+      - action: permit 1.1.1.0/24 eq 32
+        sequence: '10'
+    route_maps:
+    - name: Loopback
+      sequence_numbers:
+      - match:
+        - ip address prefix-list Loopback
+        sequence: '10'
+        type: permit
+  nodes:
+    Spine-01:
+      id: 1
+      mgmt_ip: 192.168.22.241
+    Spine-02:
+      id: 2
+      mgmt_ip: 192.168.22.242
+vxlan_vlan_aware_bundles: true

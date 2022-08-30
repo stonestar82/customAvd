@@ -1,0 +1,37 @@
+---
+- name: "Arista AVD Collection 로드"
+  tags: [always, avd_version]
+  ansible.builtin.set_fact:
+    avd_collection_version: version
+  vars:
+    versions: "{{ lookup('pipe', 'ansible-galaxy collection list --format yaml ' ~ ansible_collection_name) | from_yaml }}"
+    collection_path: "{{ (role_path | split('/'))[0:-4] | join('/') }}"
+    version: "{{ versions[collection_path][ansible_collection_name].version | default('Unknown') }}"
+    git_tag: "{{ lookup('pipe', 'git -C ' ~ collection_path ~ ' describe --tags --always 2>/dev/null', errors='ignore') }}"
+  run_once: true
+  failed_when: false
+
+- name: 공용 데이터 수집
+  tags: [build, provision, facts]
+  arista.avd.eos_designs_facts:
+    avd_switch_facts: true
+  check_mode: false
+  run_once: true
+
+- name: 스위치별 데이터 수집
+  tags: [build, provision, facts]
+  ansible.builtin.set_fact:
+    switch: "{{ avd_switch_facts[inventory_hostname].switch }}"
+  delegate_to: localhost
+  changed_when: false
+
+- name: 스위치별 cfg 파일 생성
+  tags: [build, provision]
+  arista.avd.yaml_templates_to_facts:
+    templates: "{{ templates.structured_config }}"
+    dest: "{{ structured_dir }}/{{ inventory_hostname }}.{{ avd_structured_config_file_format }}"
+    template_output: true
+    remove_avd_switch_facts: true
+  delegate_to: localhost
+  check_mode: false
+  register: structured_config

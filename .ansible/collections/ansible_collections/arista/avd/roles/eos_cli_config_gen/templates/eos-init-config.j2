@@ -1,0 +1,19 @@
+!
+logging buffered 1000
+logging console informational
+logging monitor informational
+logging synchronous level all
+! service routing protocols model 변경시 재부팅 필요
+service routing protocols model multi-agent
+!
+hostname {{ HOST_NAME }}
+!
+vrf instance {{ MGMT_VRF }}
+!
+interface 1
+  vrf {{ MGMT_VRF }}
+  ip address {{ HOST_IP }}
+!
+username ansible privilege 15 role network-admin secret ansible
+!
+ip route vrf {{ MGMT_VRF }} 0.0.0.0/0 {{ MGMT_GW }}

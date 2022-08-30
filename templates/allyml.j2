@@ -1,0 +1,33 @@
+# AVD configurations variables
+
+## terminal length
+terminal:
+  length: {{ terminal_length }}
+  width: {{ terminal_width }}
+
+## spanning-tree mode mstp
+spanning_tree:
+  mode: {{ spanning_tree_mode }}
+
+## clock timezone Asia/Seoul
+clock:
+  timezone: {{ timezone}}
+
+## ip routing
+ip_routing: {{ ip_route }}
+
+## vrf
+vrfs:
+- name: {{ default_mgmt }}
+  ip_routing: False
+
+## banner login
+banners:
+  login: "{{ banner_login }}"
+
+## BGP maximum path & ecmp
+bgp_maximum_paths: {{ bgp_maximum_paths }}
+bgp_ecmp: {{ bgp_ecmp }}
+
+## p2p ipv4 pool - ethernet ip
+p2p_ipv4_pool: {{ p2p_ipv4_pool }}

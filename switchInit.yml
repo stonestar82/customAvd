@@ -1,0 +1,9 @@
+- name: 각 스위치 기본 config 설정
+  hosts: DC1_FABRIC
+  gather_facts: false
+  
+  tasks:
+    - name: run EAPI
+      script: ./switchScanConfig.py
+      args:
+        executable: /usr/bin/python

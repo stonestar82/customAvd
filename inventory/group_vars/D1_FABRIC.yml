@@ -1,0 +1,156 @@
+bfd_multihop:
+  interval: '1200'
+  min_rx: '1200'
+  multiplier: '3'
+bgp_mlag_ipv4_password: GT
+bgp_peer_groups:
+  EVPN_OVERLAY_PEERS:
+    bgp_listen_range_prefix: 1.1.1.0/24
+    name: EVPN
+    password: GT
+    peer_filter: Leaf-Ass
+    remote_as: 65001
+  IPv4_UNDERLAY_PEERS:
+    bgp_listen_range_prefix: 100.64.0.0/10
+    maximum_routes: '12000'
+    name: UNDERLAY
+    password: GT
+    peer_filter: Leaf-Ass
+    remote_as: 65000
+fabric_name: DC_FABRIC
+l3leaf:
+  defaults:
+    bgp_defaults:
+    - no bgp default ipv4-unicast
+    loopback_ipv4_offset: 1
+    loopback_ipv4_pool: 1.1.1.0/30
+    mlag_interfaces:
+    - Ethernet7
+    - Ethernet8
+    mlag_peer_ipv4_pool: 192.168.0.0/32
+    mlag_peer_l3_ipv4_pool: 10.255.251.0/24
+    mlag_port_channel_id: '1000'
+    platform: vEOS
+    prefix_lists:
+    - name: Loopback
+      sequence_numbers:
+      - action: permit 1.1.1.0/24 eq 32
+        sequence: '10'
+    - name: Loopback
+      sequence_numbers:
+      - action: permit 2.2.2.0/24 eq 32
+        sequence: '20'
+    route_maps:
+    - name: Loopback
+      sequence_numbers:
+      - match:
+        - ip address prefix-list Loopback
+        sequence: '10'
+        type: permit
+    spanning_tree_mode: none
+    spanning_tree_priority: '16384'
+    uplink_interfaces:
+    - Ethernet1
+    - Ethernet2
+    uplink_ipv4_pool: 100.100.0.0/30
+    uplink_switches:
+    - Spine-01
+    - Spine-02
+    virtual_router_mac_address: '12:34:12:34:12:34'
+    vtep_loopback_ipv4_pool: 3.3.3.0/24
+  node_groups:
+    BL:
+      bgp_as: 65005
+      mlag_interfaces:
+      - Ethernet7
+      - Ethernet8
+      nodes:
+        D1-BL-01:
+          id: 7
+          mgmt_ip: 192.168.22.197/24
+          uplink_switch_interfaces:
+          - Ethernet5
+          - Ethernet5
+        D1-BL-02:
+          id: 8
+          mgmt_ip: 192.168.22.198/24
+          uplink_switch_interfaces:
+          - Ethernet6
+          - Ethernet6
+    DC_LEAF1:
+      nodes:
+        D1-Leaf-01:
+          bgp_as: 65001
+          id: 3
+          mgmt_ip: 192.168.22.193/24
+          mlag: false
+          uplink_switch_interfaces:
+          - Ethernet1
+          - Ethernet1
+    DC_LEAF2:
+      nodes:
+        D1-Leaf-02:
+          bgp_as: 65002
+          id: 4
+          mgmt_ip: 192.168.22.194/24
+          mlag: false
+          uplink_switch_interfaces:
+          - Ethernet2
+          - Ethernet2
+    DC_LEAF3:
+      nodes:
+        D1-Leaf-03:
+          bgp_as: 65003
+          id: 5
+          mgmt_ip: 192.168.22.195/24
+          mlag: false
+          uplink_switch_interfaces:
+          - Ethernet3
+          - Ethernet3
+    DC_LEAF4:
+      nodes:
+        D1-Leaf-04:
+          bgp_as: 65004
+          id: 6
+          mgmt_ip: 192.168.22.196/24
+          mlag: false
+          uplink_switch_interfaces:
+          - Ethernet4
+          - Ethernet4
+leaf_peer_l3: 10.255.251.0/24
+mlag_peer: 10.255.252.0/24
+p2p_uplinks_mtu: '1500'
+spine:
+  defaults:
+    bgp_as: 65000
+    bgp_defaults:
+    - no bgp default ipv4-unicast
+    loopback_ipv4_pool: 1.1.1.0/30
+    mlag_peer_ipv4_pool: 10.255.252.0/24
+    mlag_peer_l3_ipv4_pool: 10.255.251.0/24
+    peer_filters:
+    - name: Leaf-Ass
+      sequence_numbers:
+      - match: as-range 65001-65200 result accept
+        sequence: '10'
+    platform: vEOS
+    prefix_lists:
+    - name: Loopback
+      sequence_numbers:
+      - action: permit 1.1.1.0/24 eq 32
+        sequence: '10'
+    route_maps:
+    - name: Loopback
+      sequence_numbers:
+      - match:
+        - ip address prefix-list Loopback
+        sequence: '10'
+        type: permit
+  nodes:
+    D1-Spine-01:
+      id: 1
+      mgmt_ip: 192.168.22.191/24
+    D1-Spine-02:
+      id: 2
+      mgmt_ip: 192.168.22.192/24
+vxlan_vlan_aware_bundles: true

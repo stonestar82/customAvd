@@ -1,0 +1,11 @@
+---
+- name: Arista EOS Configuration
+  hosts: D1_FABRIC
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+  tasks:
+    - name: cfg 파일 생성 작업
+      import_role:
+        name: eos_cli_config_gen
