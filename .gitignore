@@ -5,3 +5,4 @@ inventory/documentation/
 inventory/intended/configs/
 ~$*.xlsx
 upload/
+*.pyc
