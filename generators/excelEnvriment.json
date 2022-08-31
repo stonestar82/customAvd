@@ -164,6 +164,7 @@
       "hostName": "HOSTNAME",
       "mgmt": "MGMT",
       "loopback0": "Loopback0",
+      "loopback1": "Loopback1",
       "bgpAsn": "BGP_ASN",
       "type": "Type",
       "id": "ID"

@@ -30,6 +30,7 @@ typeCol = excelVar["pd"]["switchIpInfo"]["type"]
 idCol = excelVar["pd"]["switchIpInfo"]["id"]
 p2pSubnet = info["p2p_subnet"]
 
+
 ## Switch 정보 로드
 switches = pd.read_excel(inventory_file, header=headerRow, sheet_name=sheetName)[[hostNameCol, typeCol, idCol]]
 
