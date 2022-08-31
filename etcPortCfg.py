@@ -28,6 +28,7 @@ headerRow = excelVar["pd"]["switchIpInfo"]["header"]
 hostNameCol = excelVar["pd"]["switchIpInfo"]["hostName"]
 typeCol = excelVar["pd"]["switchIpInfo"]["type"]
 idCol = excelVar["pd"]["switchIpInfo"]["id"]
+p2pSubnet = info["p2p_subnet"]
 
 ## Switch 정보 로드
 switches = pd.read_excel(inventory_file, header=headerRow, sheet_name=sheetName)[[hostNameCol, typeCol, idCol]]
@@ -42,8 +43,6 @@ for idx, switch in switches.iterrows():
       "ID": switch[idCol]
     }
   )
-  
-pprint(switchInfo)
 
 sheetName = excelVar["pd"]["portMap"]["sheetName"]
 headerRow = excelVar["pd"]["portMap"]["header"]
@@ -73,7 +72,7 @@ for idx, switch in switches.iterrows():
       ip = ipaddress.ip_network(switch[leafIpCol])[switchInfo[leaf]["ID"]]
       portMap.setdefault(
         leaf,  {
-          "IP": str(ip) + "/30",
+          "IP": str(ip) + "/" + str(p2pSubnet),
           "ID": switchInfo[leaf]["ID"],
           "INTERFACES": [{ "ETHERNET": switch[leafPortCol] }]
         }
@@ -86,7 +85,7 @@ for idx, switch in switches.iterrows():
       ip = ipaddress.ip_network(switch[spineIpCol])[switchInfo[leaf]["ID"]]
       portMap.setdefault(
         leaf,  {
-          "IP": str(ip) + "/30",
+          "IP": str(ip) + "/" + str(p2pSubnet),
           "ID": switchInfo[leaf]["ID"],
           "INTERFACES": [{ "ETHERNET": switch[spinePortCol] }]
         }

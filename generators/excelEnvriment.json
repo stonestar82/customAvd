@@ -25,7 +25,8 @@
     "bgpEcmp": {"sheet": "Var", "p": "Z9999", "mapping":"bgp_ecmp", "defaultValue": "8"},
     "p2pIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"p2p_ipv4_pool", "defaultValue": "100.100.0.0/30"},
     "macAging": {"sheet": "Var", "p": "B18", "mapping":"mac_aging", "defaultValue": "1"},
-    "arpAging": {"sheet": "Var", "p": "B19", "mapping":"arp_aging", "defaultValue": "1"}
+    "arpAging": {"sheet": "Var", "p": "B19", "mapping":"arp_aging", "defaultValue": "1"},
+    "p2pSubnet": {"sheet": "Var", "p": "E17", "mapping":"p2p_subnet", "defaultValue": "30"}
   },
   "general": {
     "fabricName": {"sheet": "Var", "p": "B2", "mapping":"fabric_name", "defaultValue": "DC"},
