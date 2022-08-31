@@ -1,0 +1,11 @@
+{%for INTERFACE in SWITCH.INTERFACES %}
+!
+interface {{ INTERFACE.ETHERNET }}
+  no switchport
+  no ip address
+  default ipv6 enable
+
+{%endfor%}
+!
+no ip routing ipv6 interfaces
+no ipv6 unicast-routing
