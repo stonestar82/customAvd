@@ -1,19 +1,28 @@
-router bgp 65000
+router bgp {{ BGP_ASN }}
   bgp asn notation asdot
-
-  router-id 1.1.1.252
-
-
-
+{%if TYPE == "Spine"%}
+  router-id 1.1.1.25{{ ID }}
+{%endif%}
+{%if TYPE == "Leaf"%}
+  router-id 1.1.1.{{ ID }}
+{%endif%}
+{%if TYPE == "BL"%}
+  router-id 1.1.1.20{{ ID }}
+{%endif%}
   no bgp default ipv4-unicast
   maximum-paths 8 ecmp 8
-
+{%if TYPE == "Spine"%}
   bgp listen range fe80::/10 peer-group UNDERLAY peer-filter Leaf-Ass
   !
   neighbor UNDERLAY peer group
   neighbor UNDERLAY send-community
-
-
+{%endif%}
+{%if TYPE == "Leaf" or TYPE == "BL"%}
+  !
+{%  for INTERFACE in INTERFACES %}
+  neighbor interface ethernet {{ INTERFACE.ETHERNET }} peer-group UNDERLAY remote-as 65000
+{%endfor%}
+{%endif%}
   !
   redistribute connected route-map Loopback
   !

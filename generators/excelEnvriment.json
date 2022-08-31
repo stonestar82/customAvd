@@ -164,7 +164,8 @@
       "mgmt": "MGMT",
       "loopback0": "Loopback0",
       "bgpAsn": "BGP_ASN",
-      "type": "Type"
+      "type": "Type",
+      "id": "ID"
     },
     "portMap": {
       "sheetName": "Portmap",
