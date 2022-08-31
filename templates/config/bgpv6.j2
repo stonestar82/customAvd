@@ -20,7 +20,7 @@ router bgp {{ BGP_ASN }}
 {%if TYPE == "Leaf" or TYPE == "BL"%}
   !
 {%  for INTERFACE in INTERFACES %}
-  neighbor interface ethernet {{ INTERFACE.ETHERNET }} peer-group UNDERLAY remote-as 65000
+  neighbor interface {{ INTERFACE.ETHERNET }} peer-group UNDERLAY remote-as 65000
 {%endfor%}
 {%endif%}
   !
