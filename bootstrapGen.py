@@ -36,6 +36,8 @@ interface Management1
 ip route 0.0.0.0/0 $${gateway}.1
 \"\"\"
 
+b = \"flash:/SWI=$${swiName}\"
+
 switch = EapiClient(disableAaa=True, privLevel=15)
 
 cli_command = "sh version | json"
@@ -43,21 +45,46 @@ result = switch.runCmds( 1, [cli_command])
 data = result["result"][0]
 sysmac = data["systemMacAddress"]
 serial = data["serialNumber"]
+modelName = data["modelName"]
+version = data["version"]
 
-requestUrl = "${requestUrl}/bootstrap/requestip/${seq}/" + sysmac + "/" + serial
+if modelName == "vEOS-lab":
+	cli_command = "copy ${requestUrl}/eos/download/vEOS-lab flash:/vEOS-lab-${version}.swi"
+	swiName = "vEOS-lab-${version}.swi"
+else:
+	cli_command = "copy ${requestUrl}/eos/download/EOS flash:/EOS-${version}.swi"
+	swiName = "EOS-${version}.swi"
+
+switch.runCmds( 1, [cli_command])
+
+
+cli_command = "show interfaces | json"
+result = switch.runCmds( 1, [cli_command])
+data = result["result"][0]
+ip = data["interfaces"]["Management1"]["interfaceAddress"][0]["primaryIp"]["address"]
+
+
+
+requestUrl = "${requestUrl}/bootstrap/ip/${seq}/" + ip + "/" + sysmac + "/" + serial
 
 response = requests.get(requestUrl)
-ip = response.text
+
 
 tmp_ip = ip.split(".")	
 gateway = tmp_ip[0] + "." + tmp_ip[1] + "." + tmp_ip[2]
 
-data = { "ansible" : "ansible", "ansible_pw": "ansible", "ip" : ip, "gateway": gateway }
+data = { "ansible" : "ansible", "ansible_pw": "ansible", "ip" : ip, "gateway": gateway, "swiName": swiName  }
 
 template = Template(t)
 
 with open("/mnt/flash/startup-config", "w") as reqs:
 	reqs.write(template.substitute(data))
+	reqs.close
+
+template = Template(b)
+with open("/mnt/flash/boot-config", "w") as reqs:
+	reqs.write(template.substitute(data))
+	reqs.close
 
 
 	"""
@@ -67,7 +94,7 @@ with open("/mnt/flash/startup-config", "w") as reqs:
 
 	template = Template(t)
 
-	data = { "seq" : now, "requestUrl": url }
+	data = { "seq" : now, "requestUrl": url, "version": "4.27.4M" }
 
 	with open("bootstrap", "w") as reqs:
 		reqs.write(template.substitute(data))

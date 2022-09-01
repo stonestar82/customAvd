@@ -75,41 +75,19 @@ def requestStatus():
     
   return render_template('bootstrapStatus.html', status=status)
 
-@app.route("/bootstrap/requestip/<bootseq>/<sysmac>/<serial>")
-def requestip(bootseq, sysmac, serial):
+@app.route("/bootstrap/ip/<bootseq>/<ip>/<sysmac>/<serial>")
+def requestip(bootseq, ip, sysmac, serial):
   
-  excel = load_workbook(filename="./ip.xlsx", read_only=False, data_only=True)
-  sheetIp = excel["ip"]
-
-  ip = ""
-  ipExsist = False
-  for row in range(2, sheetIp.max_row + 1):
-    v, s = sheetIp.cell(row,1).value, sheetIp.cell(row,2).value
-    if eq("X", s):
-      ip = v
-      ipExsist = True
-      sheetIp.cell(row, 2, "O")
-      sheetIp.cell(row, 3, sysmac)
-      sheetIp.cell(row, 4, serial)
-      excel.save("./ip.xlsx")
-      break;
-    
-  if ipExsist:
-    
-    if not os.path.exists("./upload/" + bootseq):
-      with open("./upload/" + bootseq, "w") as f:
-        f.write(ip + "|" + sysmac+ "|" + serial  + "\n")
-        f.close()            
-    else:
-      with open("./upload/" + bootseq, "at", encoding="utf-8") as f:
-        f.write(ip + "|" + sysmac + "|" + serial + "\n")
-        f.close()
-        
+  if not os.path.exists("./upload/" + bootseq):
+    with open("./upload/" + bootseq, "w") as f:
+      f.write(ip + "|" + sysmac+ "|" + serial  + "\n")
+      f.close()            
   else:
-    ip = ""
-    
-  return ip
-
+    with open("./upload/" + bootseq, "at", encoding="utf-8") as f:
+      f.write(ip + "|" + sysmac + "|" + serial + "\n")
+      f.close()
+        
+  return "ok"
 
 @app.route("/eos/download/<eos>")
 def eosDownload(eos):
