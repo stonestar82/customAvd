@@ -15,6 +15,14 @@ def getFabricName(inventory_file, excelVar):
   workbook = load_workbook(filename=inventory_file, read_only=False, data_only=True)
   return getExcelSheetValue(workbook, excelVar["all"]["fabricName"])
 
+def getAnsibleIp(inventory_file, excelVar):
+  workbook = load_workbook(filename=inventory_file, read_only=False, data_only=True)
+  return getExcelSheetValue(workbook, excelVar["all"]["ansibleIp"])
+
+def getEosVersion(inventory_file, excelVar):
+  workbook = load_workbook(filename=inventory_file, read_only=False, data_only=True)
+  return getExcelSheetValue(workbook, excelVar["all"]["eosVersion"])
+
 def getCVPAddresses(inventory_file):
 	workbook = load_workbook(filename=inventory_file, read_only=False, data_only=True)
 	info_worksheet = workbook.sheet_by_name("General Configuration Details")

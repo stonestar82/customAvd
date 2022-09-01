@@ -10,6 +10,7 @@ def bootstrapFirstBootPythonCreate():
 		config = json.load(f)
 
 	url = config["url"]
+	eosVersion = config["eosVersion"]
 		
 	t = """#!/usr/bin/env python
 import requests
@@ -36,7 +37,7 @@ interface Management1
 ip route 0.0.0.0/0 $${gateway}.1
 \"\"\"
 
-b = \"flash:/SWI=$${swiName}\"
+b = \"SWI=flash:/$${swiName}\"
 
 switch = EapiClient(disableAaa=True, privLevel=15)
 
@@ -94,7 +95,7 @@ with open("/mnt/flash/boot-config", "w") as reqs:
 
 	template = Template(t)
 
-	data = { "seq" : now, "requestUrl": url, "version": "4.27.4M" }
+	data = { "seq" : now, "requestUrl": url, "version": eosVersion }
 
 	with open("bootstrap", "w") as reqs:
 		reqs.write(template.substitute(data))

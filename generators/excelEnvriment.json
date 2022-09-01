@@ -26,7 +26,9 @@
     "p2pIpv4Pool": {"sheet": "Var", "p": "Z9999", "mapping":"p2p_ipv4_pool", "defaultValue": "100.100.0.0/30"},
     "macAging": {"sheet": "Var", "p": "B18", "mapping":"mac_aging", "defaultValue": "1"},
     "arpAging": {"sheet": "Var", "p": "B19", "mapping":"arp_aging", "defaultValue": "1"},
-    "p2pSubnet": {"sheet": "Var", "p": "E17", "mapping":"p2p_subnet", "defaultValue": "30"}
+    "p2pSubnet": {"sheet": "Var", "p": "E17", "mapping":"p2p_subnet", "defaultValue": "30"},
+    "ansibleIp": {"sheet": "Var", "p": "B23", "mapping":"ansible_ip", "defaultValue": "192.168.22.251"},
+    "eosVersion": {"sheet": "Var", "p": "B24", "mapping":"eos_version", "defaultValue": "4.27.4M"}
   },
   "general": {
     "fabricName": {"sheet": "Var", "p": "B2", "mapping":"fabric_name", "defaultValue": "DC"},

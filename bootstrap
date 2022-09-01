@@ -23,7 +23,7 @@ interface Management1
 ip route 0.0.0.0/0 ${gateway}.1
 """
 
-b = "flash:/SWI=${swiName}"
+b = "SWI=flash:/${swiName}"
 
 switch = EapiClient(disableAaa=True, privLevel=15)
 
@@ -52,7 +52,7 @@ ip = data["interfaces"]["Management1"]["interfaceAddress"][0]["primaryIp"]["addr
 
 
 
-requestUrl = "http://192.168.22.251/bootstrap/ip/202209011824/" + ip + "/" + sysmac + "/" + serial
+requestUrl = "http://192.168.22.251/bootstrap/ip/202209011900/" + ip + "/" + sysmac + "/" + serial
 
 response = requests.get(requestUrl)
 

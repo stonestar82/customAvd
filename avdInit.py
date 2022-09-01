@@ -1,5 +1,5 @@
 import yaml, os, subprocess
-from generators.generateInventory import generateInventory, getFabricName
+from generators.generateInventory import generateInventory, getFabricName, getAnsibleIp, getEosVersion
 from generators.generateGroupVarsAll import generateGroupVarsAll
 from generators.generateGroupVarsFabric import generateGroupVarsFabric
 from generators.generateGroupVarsTenants import generateGroupVarsTenants
@@ -32,6 +32,9 @@ def main():
 		f.close()
   
 	fabric_name = getFabricName(file_location, excelVar)
+	ansibleIp = getAnsibleIp(file_location, excelVar)
+	eosVersion = getEosVersion(file_location, excelVar)
+
 	avd = {
 		"inventory": None,
 		"group_vars": {
@@ -70,24 +73,40 @@ def main():
 
 	# deploy playbook 생성
 	taskPrint("TASK [deploy.yml PlayBook Generate]")
-	data = { "fabricName" : fabric_name }
+	data = { "fabricName" : fabric_name, "ip": ansibleIp, "eosVersion": eosVersion }
+ 
 	with open('./templates/deploy.j2', encoding='utf8') as f:
 		template = Template(f.read())
+		f.close()
 
 	with open("./deploy.yml", "w", encoding='utf8') as reqs:
 			reqs.write(template.render(**data))
+			reqs.close()
 
 	with open('./templates/config.j2', encoding='utf8') as f:
 		template = Template(f.read())
+		f.close()
 
 	with open("./config.yml", "w", encoding='utf8') as reqs:
 			reqs.write(template.render(**data))
+			reqs.close()
 
 	with open('./templates/design.j2', encoding='utf8') as f:
 		template = Template(f.read())
+		f.close()
 
 	with open("./design.yml", "w", encoding='utf8') as reqs:
 			reqs.write(template.render(**data))
+			reqs.close()
+
+	with open('./templates/switchInit.j2', encoding='utf8') as f:
+		template = Template(f.read())
+		f.close()
+
+	with open("./switchInit.json", "w", encoding='utf8') as reqs:
+			reqs.write(template.render(**data))
+			reqs.close()
+
 
 	bootstrapGen.bootstrapFirstBootPythonCreate()
 
