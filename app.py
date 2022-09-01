@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, send_file
 import os, json
 from operator import eq
 from werkzeug.utils import secure_filename
@@ -109,6 +109,14 @@ def requestip(bootseq, sysmac, serial):
     ip = ""
     
   return ip
+
+
+@app.route("/eos/download/<eos>")
+def eosDownload(eos):
+  
+  path = "./eos/" + eos + ".swi"
+  return send_file(path, as_attachment=True)
+
 
 
 if __name__ == "__main__":
