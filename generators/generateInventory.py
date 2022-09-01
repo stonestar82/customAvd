@@ -47,11 +47,11 @@ def parseSpineInfo(inventory_file, excelVar):
 	spinePrefix = excelVar["spine"]["prefix"]
 	spineHostnameCol = excelVar["spine"]["props"]["hostname"]["col"]
 
-	print("spinePrefix = ", inventory_worksheet)
+	# print("spinePrefix = ", inventory_worksheet)
 
 	for row in inventory_worksheet.iter_rows():
 		for cell in row:
-			print(cell.value)
+			# print(cell.value)
 			if cell.value:
 				if eq(cell.coordinate, spineHostnameCol + str(cell.row)):
 					p = re.compile(spinePrefix)

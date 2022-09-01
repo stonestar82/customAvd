@@ -6,3 +6,4 @@ inventory/intended/configs/
 ~$*.xlsx
 upload/
 *.pyc
+*.swi
