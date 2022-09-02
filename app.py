@@ -89,6 +89,20 @@ def requestip(bootseq, ip, sysmac, serial):
         
   return "ok"
 
+@app.route("/bootstrap/booting/<bootseq>/<ip>")
+def booting(bootseq, ip):
+  
+  if not os.path.exists("./upload/booting_" + bootseq):
+    with open("./upload/booting_" + bootseq, "w") as f:
+      f.write(ip+ "\n")
+      f.close()            
+  else:
+    with open("./upload/booting_" + bootseq, "at", encoding="utf-8") as f:
+      f.write(ip+ "\n")
+      f.close()
+        
+  return "ok"
+
 @app.route("/eos/download/<eos>")
 def eosDownload(eos):
   
